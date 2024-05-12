@@ -15,25 +15,45 @@ public class Main {
 
         printBoard();
 
+        gameplay();
+
+//        Scanner sc = new Scanner(System.in);
+//        int userChoice = sc.nextInt();
+//
+//        userTurn(userChoice);
+//        System.out.println("Player move: ");
+//        printBoard();
+//
+//        Random rand = new Random();
+//        System.out.println("Bot move: ");
+//        int botChoice = rand.nextInt(10);
+//
+//        botTurn(botChoice);
+//        printBoard();
+
+    }
+
+    //  Gameplay loop
+    public static void gameplay() {
+        System.out.println("Player move:");
+        userTurn(userChoice());
+
+        System.out.println("Bot move:");
+        botTurn(botChoice());
+    }
+
+    //  Asks user for input
+    public static int userChoice() {
         Scanner sc = new Scanner(System.in);
         int userChoice = sc.nextInt();
+        return userChoice;
+    }
 
-        userTurn(userChoice);
-        System.out.println("Player move: ");
-        printBoard();
-
+    //  Generates computer's random choice
+    public static int botChoice() {
         Random rand = new Random();
-        System.out.println("Bot move: ");
         int botChoice = rand.nextInt(10);
-
-        botTurn(botChoice);
-        printBoard();
-
-
-
-
-
-
+        return botChoice;
     }
 
     //  Method that prints the Tic-Tac-Toe game board
@@ -47,18 +67,24 @@ public class Main {
 
     //  Method that plugs in X over the square the user chose
     private static void userTurn(int userChoice) {
-        if(!userValidity(userChoice))
-            System.out.println("Error, not a valid square.");
-        else
-            board[userChoice - 1] = "X";
+        Scanner sc = new Scanner(System.in);
+        while(!userValidity(userChoice)) {
+            System.out.println("Not a valid square. Please try again.");
+            userChoice = sc.nextInt();
+        }
+        board[userChoice - 1] = "X";
+        printBoard();
     }
 
     // Method that plugs in O over the square the bot randomly chose
     private static void botTurn(int botChoice) {
-        if(!botValidity(botChoice))
-            System.out.println("Error");
-        else
-            board[botChoice - 1] = "O";
+        Random rand = new Random();
+        while(!botValidity(botChoice)) {
+            botChoice = rand.nextInt(10);
+        }
+
+        board[botChoice - 1] = "O";
+        printBoard();
     }
 
     //  Method that checks if user choice is valid
