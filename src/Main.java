@@ -55,13 +55,25 @@ public class Main {
 
     // Method that plugs in O over the square the bot randomly chose
     private static void botTurn(int botChoice) {
-        board[botChoice - 1] = "O";
+        if(!botValidity(botChoice))
+            System.out.println("Error");
+        else
+            board[botChoice - 1] = "O";
     }
 
     //  Method that checks if user choice is valid
     private static boolean userValidity(int userChoice) {
         if (userChoice != 1 && userChoice != 2 && userChoice != 3 && userChoice != 4 && userChoice != 5 &&
                 userChoice != 6 && userChoice != 7 && userChoice != 8 && userChoice != 9) {
+            return false;
+        }
+        else
+            return true;
+    }
+
+    //  Method that checks if bot choice is valid
+    private static boolean botValidity(int botChoice) {
+        if(board[botChoice-1].equals("X") || board[botChoice-1].equals("O")) {
             return false;
         }
         else
