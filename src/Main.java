@@ -33,6 +33,10 @@ public class Main {
 
     }
 
+    public static void checkWin() {
+
+    }
+
     //  Gameplay loop
     public static void gameplay() {
         System.out.println("Player move:");
@@ -91,6 +95,9 @@ public class Main {
     private static boolean userValidity(int userChoice) {
         if (userChoice != 1 && userChoice != 2 && userChoice != 3 && userChoice != 4 && userChoice != 5 &&
                 userChoice != 6 && userChoice != 7 && userChoice != 8 && userChoice != 9) {
+            return false;
+        }
+        if (board[userChoice-1].equals("0") || board[userChoice-1].equals("X")) {
             return false;
         }
         else
