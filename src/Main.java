@@ -16,34 +16,61 @@ public class Main {
         printBoard();
 
         gameplay();
-
-//        Scanner sc = new Scanner(System.in);
-//        int userChoice = sc.nextInt();
-//
-//        userTurn(userChoice);
-//        System.out.println("Player move: ");
-//        printBoard();
-//
-//        Random rand = new Random();
-//        System.out.println("Bot move: ");
-//        int botChoice = rand.nextInt(10);
-//
-//        botTurn(botChoice);
-//        printBoard();
-
     }
 
-    public static void checkWin() {
+    //  This method checks for a winner by comparing the current board with all possiblities of a win.
+    public static boolean checkWin() {
+        String pattern = null;
 
+        for(int i = 0; i < 8; i++) {
+            switch(i) {
+                case 0:
+                    pattern = board[0] + board[1] + board[2];
+                    break;
+                case 1:
+                    pattern = board[3] + board[4] + board[5];
+                    break;
+                case 2:
+                    pattern = board[6] + board[7] + board[8];
+                    break;
+                case 3:
+                    pattern = board[0] + board[3] + board[6];
+                    break;
+                case 4:
+                    pattern = board[1] + board[4] + board[7];
+                    break;
+                case 5:
+                    pattern = board[2] + board[5] + board[8];
+                    break;
+                case 6:
+                    pattern = board[0] + board[4] + board[8];
+                    break;
+                case 7:
+                    pattern = board[2] + board[4] + board[6];
+                    break;
+            }
+            if (pattern.equals("XXX")) {
+                System.out.println("Congrats! You won!");
+                return true;
+            }
+
+            if (pattern.equals("OOO")) {
+                System.out.println("Game over, you lose.");
+                return true;
+            }
+        }
+        return false;
     }
 
     //  Gameplay loop
     public static void gameplay() {
-        System.out.println("Player move:");
-        userTurn(userChoice());
+        while(!checkWin()) {
+            System.out.println("Player move:");
+            userTurn(userChoice());
 
-        System.out.println("Bot move:");
-        botTurn(botChoice());
+            System.out.println("Bot move:");
+            botTurn(botChoice());
+        }
     }
 
     //  Asks user for input
@@ -83,8 +110,10 @@ public class Main {
     // Method that plugs in O over the square the bot randomly chose
     private static void botTurn(int botChoice) {
         Random rand = new Random();
+        int low = 1;
+        int high = 10;
         while(!botValidity(botChoice)) {
-            botChoice = rand.nextInt(10);
+            botChoice = rand.nextInt(high-low) + low;
         }
 
         board[botChoice - 1] = "O";
