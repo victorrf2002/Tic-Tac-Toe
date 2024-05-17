@@ -18,7 +18,7 @@ public class Main {
         gameplay();
     }
 
-    //  This method checks for a winner by comparing the current board with all possiblities of a win.
+    //  This method checks for a winner by comparing the current board with all possibilities of a win.
     public static boolean checkWin() {
         String pattern = null;
 
@@ -111,7 +111,7 @@ public class Main {
     private static void botTurn(int botChoice) {
         Random rand = new Random();
         int low = 1;
-        int high = 10;
+        int high = 9;
         while(!botValidity(botChoice)) {
             botChoice = rand.nextInt(high-low) + low;
         }
